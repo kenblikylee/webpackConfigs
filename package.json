@@ -1,0 +1,7 @@
+{
+  "repository": "https://github.com/kenblikylee/webpackConfigs.git",
+  "author": "kenblikylee <kenblikylee@126.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": []
+}
