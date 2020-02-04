@@ -17,6 +17,12 @@ const createStyleRule = (isDev, lang) => {
       options: {
         sourceMap: true
       }
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        sourceMap: true
+      }
     }
   ]
   if (['less', 'sass', 'stylus'].includes(lang)) {

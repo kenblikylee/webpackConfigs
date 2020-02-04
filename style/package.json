@@ -6,6 +6,7 @@
     "inspect": "node ./config/inspect.js"
   },
   "devDependencies": {
+    "autoprefixer": "^9.7.4",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.4.2",
     "html-webpack-plugin": "^3.2.0",
@@ -13,6 +14,8 @@
     "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.1",
+    "postcss-loader": "^3.0.0",
+    "precss": "^4.0.0",
     "sass-loader": "^8.0.2",
     "serve": "^11.3.0",
     "style-loader": "^1.1.3",
