@@ -7,15 +7,17 @@ class VMap {
     this.map.setMapStyle('amap://styles/whitesmoke')
     this.map.setFeatures(['bg', 'point', 'road', 'building']) // ['bg', 'point', 'road', 'building']
   }
+  on() {
+    this.map.on(...arguments)
+  }
+  off() {
+    this.map.off(...arguments)
+  }
 }
 
-function installAll (r) {
-  r.keys().forEach(key => {
-    let plugin = r(key)
-    plugin.default(VMap)
-  })
-}
-
-installAll(require.context('./plugins', false, /\.js$/i))
+const r = require.context('./plugins', false, /\.js$/i)
+r.keys().forEach(k => {
+  r(k).default(VMap)
+})
 
 export default VMap

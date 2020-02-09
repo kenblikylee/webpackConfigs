@@ -19,7 +19,7 @@ const onGeolocationError = err => {
   }
 }
 
-export default function install(VMap) {
+export default function(VMap) {
   VMap.prototype.locate = function() {
     return new Promise((resolve, reject) => {
       if (!geolocation) {

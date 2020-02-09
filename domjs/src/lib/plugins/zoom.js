@@ -1,4 +1,4 @@
-export default function install(VMap) {
+export default function(VMap) {
   VMap.prototype.setZoom = function(l) {
     this.map.setZoom(l)
   }

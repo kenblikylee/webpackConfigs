@@ -1,6 +1,6 @@
 import AMap from 'AMap'
 
-export default function install(VMap) {
+export default function(VMap) {
   VMap.prototype.marker = function(lnglat, text, icon) {
     let marker = new AMap.Marker({
       position: lnglat,
