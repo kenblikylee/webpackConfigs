@@ -10,12 +10,11 @@ const webpackConfig = {
   mode: isDev ? 'development' : 'production',
   devtool: isDev ? 'inline-source-map' : 'source-map',
   entry: {
-    main: './src/index.js',
-    style: './theme/index.scss'
+    app: './src/index.js'
   },
   output: {
     path:  path.resolve(__dirname, 'dist'),
-    filename: isDev ? '[name].[hash].js' : '[name].[contenthash].js',
+    filename: isDev ? '[name].[hash].js' : '[name].js',
     publicPath: ''
   },
   module: {
@@ -59,7 +58,7 @@ const webpackConfig = {
       title: 'domjs',
       template: 'index.html',
       filename: 'index.html',
-      chunks: ['main', 'style'],
+      chunks: ['app'],
       excludeChunks: [],
       meta: {
         viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'
@@ -98,7 +97,8 @@ webpackConfig.externals = {
 webpackConfig.resolve = {
   alias: {
     lib: path.resolve(__dirname, 'src/lib'),
-    utils: path.resolve(__dirname, 'src/utils')
+    utils: path.resolve(__dirname, 'src/utils'),
+    theme$: path.resolve(__dirname, 'theme/index.scss')
   }
 }
 // copy

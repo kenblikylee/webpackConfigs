@@ -2,6 +2,7 @@ import AMap from 'AMap'
 import VMap from 'lib/vmap'
 import { viewportSize } from 'utils'
 import runApp from './app'
+import 'theme'
 
 const mapContainer = document.getElementById('container')
 let { width, height } = viewportSize()
