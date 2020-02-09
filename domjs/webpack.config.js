@@ -2,6 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const webpack = require('webpack')
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -14,7 +15,8 @@ const webpackConfig = {
   },
   output: {
     path:  path.resolve(__dirname, 'dist'),
-    filename: isDev ? '[name].[hash].js' : '[name].[contenthash].js'
+    filename: isDev ? '[name].[hash].js' : '[name].[contenthash].js',
+    publicPath: ''
   },
   module: {
     rules: [
@@ -68,11 +70,24 @@ const webpackConfig = {
 }
 
 if (isDev) {
+  const proxy = {
+    '/api/2019-nCov': {
+      target: 'https://cloud.papakaka.com',
+      pathRewrite: {'^/api/2019-nCov' : '/2019-nCov/api'}
+    }
+  }
   webpackConfig.devServer = {
     hot: true,
     open: true,
-    host: '0.0.0.0'
+    host: '0.0.0.0',
+    proxy
   }
+  webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin({}))
+} else {
+  webpackConfig.plugins.push(new MiniCssExtractPlugin({
+    filename: '[name].css',
+    chunkFilename: '[id].css'
+  }))
 }
 
 // 外部库
@@ -82,8 +97,18 @@ webpackConfig.externals = {
 // 别名
 webpackConfig.resolve = {
   alias: {
-    lib: path.resolve(__dirname, 'src/lib')
+    lib: path.resolve(__dirname, 'src/lib'),
+    utils: path.resolve(__dirname, 'src/utils')
   }
 }
+// copy
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+webpackConfig.plugins.push(new CopyWebpackPlugin([
+  {
+    from: 'static',
+    to: 'static',
+    ignore: ['.*']
+  }
+]))
 
 module.exports = webpackConfig
