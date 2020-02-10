@@ -47,14 +47,13 @@ export default vmap => {
     if (cityData) {
       let center = cityData.center.coordinates
       this.setZoomAndCenter(9, center)
-      // this.marker(center)
     } else {
       this.fit()
     }
   }
   vmap.$on('citypois', citypois => {
     vmap.citypois = citypois
-    vmap.renderCityPois('东莞')
+    vmap.renderCityPois()
     console.table(citypois.map(city => {
       return {
         '城市': city.name,
@@ -63,9 +62,8 @@ export default vmap => {
     }))
     console.log(citypois.map(city => city.name))
   })
-  vmap.$on('locate', res => {
-    alert(res.location_type + ':' + res.formattedAddress + ':' + res.position)
-    // vmap.marker(res.position)
+  vmap.$on('locate', ({ position, city }) => {
+    vmap.renderCityPois(city)
   })
   let markers = null
   vmap.$on('click', ({ lng, lat, address, country, province, city, district, township, street, streetNumber, citycode, adcode }) => {

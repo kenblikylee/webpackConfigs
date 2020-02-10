@@ -3,7 +3,23 @@ export default vmap => {
     vmap.$emit('citypois', res)
   })
   vmap.locate().then(res => {
-    vmap.$emit('locate', res)
+    let {
+      location_type,
+      position, accuracy, 
+      addressComponent: {
+        country, province, city, district, township, street, streetNumber, citycode, adcode
+      },
+      formattedAddress,
+      pois
+    } = res
+    vmap.$emit('locate', {
+      location_type,
+      position,
+      accuracy,
+      formattedAddress,
+      pois,
+      country, province, city, district, township, street, streetNumber, citycode, adcode
+    })
   }).catch(err => {
     vmap.$emit('locateFailed', err.message)
   })

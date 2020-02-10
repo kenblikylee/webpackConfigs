@@ -72,7 +72,7 @@ if (isDev) {
   const proxy = {
     '/api/2019-nCov': {
       target: 'https://cloud.papakaka.com',
-      pathRewrite: {'^/api/2019-nCov' : '/2019-nCov/api'}
+      pathRewrite: {'^/api/2019-nCov' : '/ncp/api'}
     }
   }
   webpackConfig.devServer = {
