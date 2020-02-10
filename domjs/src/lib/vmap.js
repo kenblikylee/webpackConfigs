@@ -13,6 +13,19 @@ class VMap {
   off() {
     this.map.off(...arguments)
   }
+  fit() {
+    this.map.setFitView(null, false, [0,0,0,0], 15)
+  }
+  clear() {
+    this.map.clearMap()
+    this.map.clearInfoWindow()
+  }
+  destroy() {
+    this.map.destroy()
+  }
+  use(plugins, cb) {
+    this.map.plugin(plugins, cb)
+  }
 }
 
 const r = require.context('./plugins', false, /\.js$/i)

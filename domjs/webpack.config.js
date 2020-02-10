@@ -55,7 +55,7 @@ const webpackConfig = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'domjs',
+      title: '2019-nCoV 疫情地图',
       template: 'index.html',
       filename: 'index.html',
       chunks: ['app'],
@@ -91,11 +91,13 @@ if (isDev) {
 
 // 外部库
 webpackConfig.externals = {
-  AMap: 'AMap'
+  AMap: 'AMap',
+  Loca: 'Loca'
 }
 // 别名
 webpackConfig.resolve = {
   alias: {
+    '@': path.resolve(__dirname, 'src'),
     lib: path.resolve(__dirname, 'src/lib'),
     utils: path.resolve(__dirname, 'src/utils'),
     theme$: path.resolve(__dirname, 'theme/index.scss')

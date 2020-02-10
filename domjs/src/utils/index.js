@@ -26,3 +26,28 @@ export const viewportSize = () => {
     }
   }
 }
+
+export const cityPois2GeoJson = pois => {
+  // 数据格式参考：http://geojson.io/
+  return {
+    type: 'FeatureCollection',
+    features: pois.map(poi => {
+      return {
+        type: 'Feature',
+        properties: {
+          name: poi.name,
+          center: poi.point.coordinates
+        },
+        geometry: poi.geometry
+      }
+    })
+  }
+}
+
+export const cityPois2LngLats = pois => {
+  return pois.map(poi => {
+    return {
+      lnglat: poi.geometry.coordinates[0]
+    }
+  })
+}

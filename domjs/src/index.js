@@ -9,8 +9,6 @@ let { width, height } = viewportSize()
 mapContainer.style.width = `${width}px`
 mapContainer.style.height = `${height}px`
 const map = new AMap.Map('container', {
-  resizeEnable: true,
-  zoom: 10,
   viewMode: '2D',
   lang:'zh_cn'
 })

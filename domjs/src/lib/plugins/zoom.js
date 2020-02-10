@@ -5,4 +5,7 @@ export default function(VMap) {
   VMap.prototype.setZoomAndCenter =  function(...args) {
     this.map.setZoomAndCenter(...args)
   }
+  VMap.prototype.getZoom =  function() {
+    return this.map.getZoom()
+  }
 }
