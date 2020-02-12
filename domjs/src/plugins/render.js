@@ -53,14 +53,14 @@ export default vmap => {
   }
   vmap.$on('citypois', citypois => {
     vmap.citypois = citypois
-    vmap.renderCityPois()
-    console.table(citypois.map(city => {
-      return {
-        '城市': city.name,
-        '小区数': city.pois.filter(item => item.geometry.type === 'Polygon').length
-      }
-    }))
-    console.log(citypois.map(city => city.name))
+    // vmap.renderCityPois()
+    // console.table(citypois.map(city => {
+    //   return {
+    //     '城市': city.name,
+    //     '小区数': city.pois.filter(item => item.geometry.type === 'Polygon').length
+    //   }
+    // }))
+    // console.log(citypois.map(city => city.name))
   })
   vmap.$on('locate', ({ position, city }) => {
     vmap.renderCityPois(city)
@@ -69,7 +69,10 @@ export default vmap => {
   vmap.$on('click', ({ lng, lat, address, country, province, city, district, township, street, streetNumber, citycode, adcode }) => {
     console.table([{ district, township, street, streetNumber, citycode, adcode, lng, lat }])
     let text = ''
-    if (vmap.getZoom() < 10) {
+    let zoom_level = vmap.getZoom()
+    if (zoom_level < 6) {
+      text = `${province}: ${lng}, ${lat}`
+    } else if (zoom_level < 10) {
       text = `${province}${city}${district}`
     } else {
       text = `${district}${township}${street}${streetNumber}`
@@ -85,6 +88,37 @@ export default vmap => {
       markers[0].setText(text)
     }
   })
+
+  const drawBoundary = ({ districtList }) => {
+    let { center, boundaries } =  districtList[0]
+    boundaries.forEach(boundary => {
+      vmap.polygon(boundary)
+    })
+    vmap.setCenter(center)
+    vmap.fit()
+  }
+
+  let layers = []
+  // vmap.district('0755').then(drawBoundary)
+  vmap.district('深圳').then(res => {
+    console.log(res.districtList[0].districtList)
+    let provinces = res.districtList[0].districtList.map(({adcode, name, level, center: {lng, lat}}) => {
+      return {
+        adcode, name, level, center: {lng, lat}
+      }
+    })
+    // console.table(provinces)
+    // console.log(JSON.stringify(provinces))
+  })
+  vmap.setLayers(layers)
+  // vmap.setZoomAndCenter(4, [109.337074, 37.253372])
+  vmap.setZoomAndCenter(4, [109.675548, 38.214277])
+  // vmap.worldLayer()
+  vmap.countryLayer().then(layer => {
+    layers.push(layer)
+    vmap.fit()
+  })
+  vmap.provinceLayer(440000, 1).then(layer => {
+    layers.push(layer)
+  })
 }
-
-

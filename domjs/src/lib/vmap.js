@@ -1,6 +1,7 @@
 class VMap {
   constructor(map) {
     this.map = map
+    this._plugins = []
     this.init()
   }
   init() {
@@ -23,8 +24,38 @@ class VMap {
   destroy() {
     this.map.destroy()
   }
-  use(plugins, cb) {
-    this.map.plugin(plugins, cb)
+  add() {
+    this.map.add(...arguments)
+  }
+  setLayers(layers) {
+    this.map.setLayers(layers)
+  }
+  use(plugins) {
+    let loadedPlugins = this._plugins
+    return new Promise(resolve => {
+      if (typeof plugins === 'string') {
+        if (loadedPlugins.includes(plugins)) {
+          resolve()
+          return
+        }
+      } else if (Array.isArray(plugins)) {
+        plugins = plugins.filter(plugin => !loadedPlugins.includes(plugin))
+        if (!plugins.length) {
+          resolve()
+          return
+        }
+      } else {
+        resolve()
+        return
+      }
+      this.map.plugin(plugins, () => {
+        this._plugins.concat(plugins)
+        resolve()
+      })
+    })
+  }
+  setCenter(center) {ˆ
+    this.map.setCenter(center)
   }
 }
 
