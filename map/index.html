@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link
+      rel="shortcut icon"
+      href="<%= webpackConfig.output.publicPath %>favicon.ico"
+    />
+    <link
+      href="<%= webpackConfig.output.publicPath %>static/leaflet.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map" style="position: fixed; top: 0; bottom: 0; width: 100%"></div>
+  </body>
+</html>
