@@ -1,10 +1,10 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const webpack = require('webpack')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin;
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === 'development';
 
 const webpackConfig = {
   mode: isDev ? 'development' : 'production',
@@ -13,7 +13,7 @@ const webpackConfig = {
     app: './src/index.js'
   },
   output: {
-    path:  path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist'),
     filename: isDev ? '[name].[hash].js' : '[name].js',
     publicPath: ''
   },
@@ -61,39 +61,42 @@ const webpackConfig = {
       chunks: ['app'],
       excludeChunks: [],
       meta: {
-        viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'
+        viewport:
+          'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'
       },
       hash: true
     })
   ]
-}
+};
 
 if (isDev) {
   const proxy = {
     '/api/2019-nCov': {
       target: 'https://cloud.papakaka.com',
-      pathRewrite: {'^/api/2019-nCov' : '/ncp/api'}
+      pathRewrite: { '^/api/2019-nCov': '/ncp/api' }
     }
-  }
+  };
   webpackConfig.devServer = {
     hot: true,
     open: true,
     host: '0.0.0.0',
     proxy
-  }
-  webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin({}))
+  };
+  webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin({}));
 } else {
-  webpackConfig.plugins.push(new MiniCssExtractPlugin({
-    filename: '[name].css',
-    chunkFilename: '[id].css'
-  }))
+  webpackConfig.plugins.push(
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css'
+    })
+  );
 }
 
 // 外部库
 webpackConfig.externals = {
   AMap: 'AMap',
   Loca: 'Loca'
-}
+};
 // 别名
 webpackConfig.resolve = {
   alias: {
@@ -102,15 +105,17 @@ webpackConfig.resolve = {
     utils: path.resolve(__dirname, 'src/utils'),
     theme$: path.resolve(__dirname, 'theme/index.scss')
   }
-}
+};
 // copy
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-webpackConfig.plugins.push(new CopyWebpackPlugin([
-  {
-    from: 'static',
-    to: 'static',
-    ignore: ['.*']
-  }
-]))
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+webpackConfig.plugins.push(
+  new CopyWebpackPlugin([
+    {
+      from: 'static',
+      to: 'static',
+      ignore: ['.*']
+    }
+  ])
+);
 
-module.exports = webpackConfig
+module.exports = webpackConfig;
