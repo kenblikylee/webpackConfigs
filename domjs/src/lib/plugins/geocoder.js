@@ -21,5 +21,25 @@ export default function(VMap) {
         _getAdr()
       }
     })
+  },
+  VMap.prototype.getLocation = function(adr) {
+    let map = this.map
+    return new Promise((resolve, reject) => {
+      const _getLoc = () => geocoder.getLocation(adr, function(status, result) {
+        if (status === 'complete' && result.info === 'OK') {
+          resolve(result)
+        } else {
+          reject(new Error('根据地址查询经纬度失败'))
+        }
+      })
+      if (!geocoder) {
+        map.plugin('AMap.Geocoder', function () {
+          geocoder = new AMap.Geocoder()
+          _getLoc()
+        })
+      } else {
+        _getLoc()
+      }
+    })
   }
 }
