@@ -1,7 +1,7 @@
 import AMap from 'AMap';
-//import VMap from 'lib/vmap';
+import VMap from 'lib/vmap';
 // import { viewportSize } from 'utils';
-//import runApp from './app';
+import runApp from './app';
 import 'theme';
 
 const mapContainer = document.getElementById('container');
@@ -18,13 +18,9 @@ const map = new AMap.Map('container', {
   lang: 'zh_cn',
   resizeEnable: true,
   layers: [
-    new AMap.TileLayer({
-      getTileUrl(x, y, z) {
-        return `http://10.0.100.22:8082/tile/${z}/${x}/${y}.png`;
-      }
-    })
+    new AMap.TileLayer()
   ],
-  // mapStyle: 'amap://styles/whitesmoke',
+  mapStyle: 'amap://styles/whitesmoke',
   features: ['bg', 'road'] // ['bg', 'point', 'road', 'building']
 });
 
@@ -35,4 +31,4 @@ map.setZoomAndCenter(10, [113.934302, 22.526523]);
 
 window.map = map;
 
-// runApp(new VMap(map));
+runApp(new VMap(map));

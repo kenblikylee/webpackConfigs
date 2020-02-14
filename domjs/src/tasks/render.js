@@ -1,4 +1,4 @@
-import labelsData from '@/data/labels';
+// import labelsData from '@/data/labels';
 import { cityPois2LngLats } from 'utils';
 
 // const shapePath = [
@@ -53,10 +53,10 @@ export default vmap => {
   };
   vmap.$on('citypois', citypois => {
     vmap.citypois = citypois;
+    vmap.renderCityPois();
   });
   vmap.$on('locate', ({ position, city }) => {
-    console.log('locate', position, city);
-    // vmap.renderCityPois(city);
+    vmap.renderCityPois(city);
   });
   vmap.$on('locateFailed', err => {
     console.error('locateFailed', err);
@@ -109,7 +109,7 @@ export default vmap => {
     vmap.fit();
   };
 
-  let layers = [];
+  // let layers = [];
   // vmap.district('0755').then(drawBoundary)
   // vmap.district('深圳', 'city').then(res => {
   //   console.log(res.districtList[0].districtList);
