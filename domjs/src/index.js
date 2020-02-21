@@ -27,7 +27,7 @@ const map = new AMap.Map('container', {
 // map.setCity(310000);
 // map.setZoom(4);
 // map.setZoomAndCenter(3, [104, 9]);
-map.setZoomAndCenter(10, [113.934302, 22.526523]);
+map.setZoomAndCenter(10, [121.33850097656251, 31.13760327002129]);
 
 window.map = map;
 
