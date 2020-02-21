@@ -1,4 +1,4 @@
-import { createMap } from './index';
+import { createMap } from '../index';
 import axios from 'axios';
 
 const map = createMap();

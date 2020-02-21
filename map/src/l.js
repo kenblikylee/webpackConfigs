@@ -1,17 +1,17 @@
 import * as L from '@bikp/leaflet';
-import runApp from './app';
+// import runApp from './app';
+import { gcj02towgs84 as transform } from "@bikp/ol/lib/utils";
 
-// const map = L.map('map').setView([32.84267363195431, 109.86328125000001], 4);
 const map = L.map('mapL', {
-  center: [22.59372606392931, 114.09301757812501],
-  zoom: 11
+  center: transform(121.33850097656251, 31.13760327002129).reverse(),
+  zoom: 10
 });
 
-// L.tileLayer('http://10.0.100.22:8082/tile/{z}/{x}/{y}.png', {
-L.tileLayer('http://10.0.100.22:8081/tile/{z}/{x}/{y}.png', {
-  maxZoom: 18,
+L.tileLayer('http://10.0.100.22:8082/styles/positron/{z}/{x}/{y}.png', {
+  minZoom: 10,
+  maxZoom: 19,
   attribution: '地图数据 &copy; qingbii.com',
   id: 'base'
 }).addTo(map);
 
-runApp(map, L);
+// runApp(map, L);
