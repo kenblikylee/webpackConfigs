@@ -1,0 +1,9 @@
+{
+  "name": "@bikp/ol",
+  "version": "1.0.0",
+  "module": "index.js",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "ol": "^6.2.1"
+  }
+}

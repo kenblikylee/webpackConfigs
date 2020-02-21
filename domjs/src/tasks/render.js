@@ -110,22 +110,22 @@ export default vmap => {
   };
 
   // let layers = [];
-  // vmap.district('0755').then(drawBoundary)
-  // vmap.district('深圳', 'city').then(res => {
-  //   console.log(res.districtList[0].districtList);
-  //   let provinces = res.districtList[0].districtList.map(
-  //     ({ adcode, name, level, center: { lng, lat } }) => {
-  //       return {
-  //         adcode,
-  //         name,
-  //         level,
-  //         center: { lng, lat }
-  //       };
-  //     }
-  //   );
-  //   // console.table(provinces)
-  //   // console.log(JSON.stringify(provinces))
-  // });
+  vmap.district('0755').then(drawBoundary)
+  vmap.district("310151").then(res => {
+    console.log(res.districtList[0]);
+    // let provinces = res.districtList[0].districtList.map(
+    //   ({ adcode, name, level, center: { lng, lat } }) => {
+    //     return {
+    //       adcode,
+    //       name,
+    //       level,
+    //       center: { lng, lat }
+    //     };
+    //   }
+    // );
+    // console.table(provinces)
+    console.log(JSON.stringify(res.districtList[0]))
+  });
   // vmap.setZoomAndCenter(3, [104, 9]);
   // vmap.worldLayer()
   // vmap.countryLayer().then(layer => {
