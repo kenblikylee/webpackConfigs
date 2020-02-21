@@ -31,6 +31,20 @@ const webpackConfig = {
         ]
       },
       {
+        test: /\.css$/i,
+        use: [
+          {
+            loader: isDev ? 'style-loader' : MiniCssExtractPlugin.loader
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
+      },
+      {
         test: /\.s[ac]ss$/i,
         use: [
           {
@@ -73,7 +87,12 @@ if (isDev) {
   const proxy = {
     '/api/2019-nCov': {
       target: 'https://cloud.papakaka.com',
+      changeOrigin: true,
       pathRewrite: { '^/api/2019-nCov': '/ncp/api' }
+    },
+    '/api': {
+      target: 'http://10.0.101.141:9090',
+      changeOrigin: true
     }
   };
   webpackConfig.devServer = {

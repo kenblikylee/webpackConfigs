@@ -1,5 +1,5 @@
 {
-  "name": "@sw/leaflet",
+  "name": "@bikp/leaflet",
   "version": "1.0.0",
   "module": "./src/Leaflet.js"
 }
