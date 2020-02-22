@@ -28,7 +28,7 @@ import home  from 'plugin-home';
 import list  from 'plugin-list';
 import detail  from 'plugin-detail';
 
-[ home, list, detail].forEach(install);
+[ home, list, detail ].forEach(install);
 
 const store = new Store({
   modules,
