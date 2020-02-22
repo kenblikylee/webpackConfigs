@@ -20,4 +20,4 @@ const routes = [
   }
 ]
 
-export default ({ router }) => router.addRoutes(routes)
+export default ({ addRoutes }) => addRoutes(routes)

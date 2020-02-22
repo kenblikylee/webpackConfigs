@@ -9,17 +9,28 @@ const router = new Router({ mode: 'history' })
 const modules = {};
 const getters = {};
 
+const hasProp = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+const assign = (obj, props) => {
+  for (let prop in props) {
+    if(hasProp(props, prop) && props[prop]) {
+      obj[prop] = props[prop]
+    }
+  }
+}
+
 function install(plugin) {
   let _install = typeof plugin === 'function' ? plugin : plugin.install
   _install({
-    router: {
-      addRoutes(route) {
-        let routes = Array.isArray(route) ? route : [route]
-        router.addRoutes(routes)
-      }
+    addRoutes(_routes) {
+      let routes = Array.isArray(_routes) ? _routes : [_routes]
+      router.addRoutes(routes)
     },
-    modules,
-    getters
+    addModules(_modules) {
+      if (typeof _modules === 'object') assign(modules, _modules)
+    },
+    addGetters(_getters) {
+      if (typeof _getters === 'object') assign(getters, _getters)
+    }
   })
 }
 
@@ -27,8 +38,9 @@ function install(plugin) {
 import home  from 'plugin-home';
 import list  from 'plugin-list';
 import detail  from 'plugin-detail';
+import login  from 'plugin-login';
 
-[ home, list, detail ].forEach(install);
+[ home, list, detail, login ].forEach(install);
 
 const store = new Store({
   modules,

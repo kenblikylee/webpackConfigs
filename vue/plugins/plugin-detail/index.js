@@ -1,4 +1,4 @@
-export default ({ router }) => router.addRoutes({
+export default ({ addRoutes }) => addRoutes({
   name: 'detail',
   path: '/detail/:id',
   props: true,
