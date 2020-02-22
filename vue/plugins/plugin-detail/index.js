@@ -17,8 +17,4 @@ const routes = [
   }
 ]
 
-export default {
-  install({ router, modules, getters }) {
-    router.addRoutes(routes)
-  }
-}
+export default ({ router }) => router.addRoutes(routes)
