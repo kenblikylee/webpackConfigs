@@ -1,0 +1,16 @@
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+header {
+  height: 60px;
+}
+article {
+  flex: 1;
+}
+footer {
+  height: 60px;
+}
+
