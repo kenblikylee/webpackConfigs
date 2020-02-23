@@ -29,6 +29,10 @@ module.exports = class extends Generator {
     this.composeWith(require.resolve('../plugin'), {
       pluginName: this.pluginName
     })
+    this.composeWith(require.resolve('../codemod'), {
+      name: this.name,
+      pluginName: this.pluginName
+    })
   }
   writing() {
     this.fs.copyTpl(

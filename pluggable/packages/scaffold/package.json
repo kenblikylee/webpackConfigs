@@ -12,6 +12,7 @@
   "dependencies": {
     "chalk": "^3.0.0",
     "git-remote-origin-url": "^3.1.0",
+    "jscodeshift": "^0.7.0",
     "lodash": "^4.17.15",
     "parse-author": "^2.0.0",
     "yeoman-environment": "^2.8.0",

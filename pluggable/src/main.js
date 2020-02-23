@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Vuex, { Store } from 'vuex';
+import home from 'plugin-home';
+import login from 'plugin-login';
 
 Vue.use(Router);
 Vue.use(Vuex);
@@ -35,10 +37,7 @@ function install(plugin) {
 }
 
 // 安装插件
-import home  from 'plugin-home';
-import login  from 'plugin-login';
-
-[ home, login ].forEach(install);
+[home, login].forEach(install);
 
 const store = new Store({
   modules,
