@@ -45,6 +45,13 @@ module.exports = class extends Generator {
       this.props.authorEmail = info.email;
       this.props.authorUrl = info.url;
     }
+
+    if (!this.props.authorName) {
+      this.props.authorName = this.config.get('authorName')
+    }
+    if (!this.props.authorEmail) {
+      this.props.authorEmail = this.config.get('authorEmail')
+    }
   
     if (!this.props.homepage) {
       return originUrl(this.destinationPath(this.options.generateInto)).then(
@@ -129,14 +136,16 @@ module.exports = class extends Generator {
         main: 'index.js',
         keywords: [],
         scripts: {
-          serve: 'vue-cli-service serve main.js',
-          build: 'vue-cli-service build main.js'
+          serve: 'vue-cli-service serve',
+          build: 'vue-cli-service build'
         },
         dependencies: {},
-        devDependencies: {},
+        devDependencies: {
+          "@vue/cli-plugin-babel": "^4.2.0"
+        },
         peerDependencies: {
           vue: "^2.6.11",
-          'vue-router': "^3.1.5",
+          "vue-router": "^3.1.5",
           vuex: "^3.1.2"
         },
         engines: {

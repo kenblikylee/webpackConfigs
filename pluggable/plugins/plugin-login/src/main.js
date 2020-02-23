@@ -5,7 +5,13 @@ import Vuex, { Store } from 'vuex';
 Vue.use(Router);
 Vue.use(Vuex);
 
-const router = new Router({ base: process.env.BASE_URL, mode: 'history' })
+const router = new Router({
+  base: process.env.BASE_URL,
+  mode: 'history',
+  routes: [
+    { path: '/', redirect: { name: 'login' } }
+  ]
+})
 const modules = {};
 const getters = {};
 
@@ -34,11 +40,9 @@ function install(plugin) {
   })
 }
 
-// 安装插件
-import home  from 'plugin-home';
-import login  from 'plugin-login';
+import login from '../index';
 
-[ home, login ].forEach(install);
+install(login);
 
 const store = new Store({
   modules,

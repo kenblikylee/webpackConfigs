@@ -35,7 +35,27 @@ module.exports = class extends Generator {
         name: this.name
       }
     );
+    this.fs.copyTpl(
+      this.templatePath('main.ejs'),
+      this.destinationPath(this.pluginPath, 'src', 'main.js'),
+      {
+        name: this.name
+      }
+    );
+    this.fs.copy(
+      this.templatePath('babel.config.js'),
+      this.destinationPath(this.pluginPath, 'babel.config.js')
+    );
+    this.fs.copy(
+      this.templatePath('public/index.html'),
+      this.destinationPath(this.pluginPath, 'public', 'index.html')
+    );
+    this.fs.copy(
+      this.templatePath('public/favicon.ico'),
+      this.destinationPath(this.pluginPath, 'public', 'favicon.ico')
+    );
   }
   install() {
+    this.yarnInstall()
   }
 }

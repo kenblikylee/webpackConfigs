@@ -1,9 +1,9 @@
-const <%= name %> = {
+const login = {
   functional: true,
   render() {
     return <div class="page">
             <header class="page-header">
-              <router-link to={{name: '<%= name %>'}}><%= name %></router-link>
+              <router-link to={{name: 'login'}}>login</router-link>
             </header>
             <article class="page-body"></article>
             <footer class="page-footer"></footer>
@@ -13,9 +13,9 @@ const <%= name %> = {
 
 const routes = [
   {
-    name: '<%= name %>',
-    path: '/<%= name %>',
-    component: <%= name %>
+    name: 'login',
+    path: '/login',
+    component: login
   }
 ]
 
