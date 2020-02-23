@@ -26,6 +26,9 @@ module.exports = class extends Generator {
       pkgName: this.pluginName,
       generateInto: this.pluginPath
     })
+    this.composeWith(require.resolve('../plugin'), {
+      pluginName: this.pluginName
+    })
   }
   writing() {
     this.fs.copyTpl(

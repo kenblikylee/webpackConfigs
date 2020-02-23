@@ -2,7 +2,10 @@
   "name": "pluggable",
   "version": "1.0.0-alpha",
   "private": true,
-  "workspaces": [ "packages/*", "plugins/*" ],
+  "workspaces": [
+    "packages/*",
+    "plugins/*"
+  ],
   "scripts": {
     "gen": "gen",
     "serve": "vue-cli-service serve",
@@ -40,5 +43,9 @@
       "vue-cli-service lint",
       "git add"
     ]
-  }
+  },
+  "plugins": [
+    "plugin-home",
+    "plugin-login"
+  ]
 }
