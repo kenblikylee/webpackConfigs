@@ -1,31 +1,34 @@
-'use strict';
-const _ = require('lodash');
+"use strict";
+const _ = require("lodash");
 const extend = _.merge;
-const Generator = require('yeoman-generator');
-const parseAuthor = require('parse-author');
-const originUrl = require('git-remote-origin-url');
+const Generator = require("yeoman-generator");
+const parseAuthor = require("parse-author");
+const originUrl = require("git-remote-origin-url");
 
 module.exports = class extends Generator {
   constructor(args, options) {
     super(args, options);
-    this.option('pkgName', {
+    this.option("pkgName", {
       type: String,
       required: false,
-      defaults: '',
-      alias: 'n',
-      desc: '包名'
+      defaults: "",
+      alias: "n",
+      desc: "包名"
     });
-    this.option('generateInto', {
+    this.option("generateInto", {
       type: String,
       required: false,
-      defaults: '',
-      alias: 't',
-      desc: '生成目录'
+      defaults: "",
+      alias: "t",
+      desc: "生成目录"
     });
   }
 
   async initializing() {
-    this.pkg = this.fs.readJSON(this.destinationPath(this.options.generateInto, 'package.json'), {});
+    this.pkg = this.fs.readJSON(
+      this.destinationPath(this.options.generateInto, "package.json"),
+      {}
+    );
 
     this.props = {
       name: this.pkg.name || this.options.pkgName,
@@ -47,18 +50,18 @@ module.exports = class extends Generator {
     }
 
     if (!this.props.authorName) {
-      this.props.authorName = this.config.get('authorName')
+      this.props.authorName = this.config.get("authorName");
     }
     if (!this.props.authorEmail) {
-      this.props.authorEmail = this.config.get('authorEmail')
+      this.props.authorEmail = this.config.get("authorEmail");
     }
-  
+
     if (!this.props.homepage) {
       return originUrl(this.destinationPath(this.options.generateInto)).then(
         url => {
           this.props.homepage = url;
         }
-      )
+      );
     } else {
       return Promise.resolve();
     }
@@ -67,36 +70,36 @@ module.exports = class extends Generator {
   _askFor() {
     const prompts = [
       {
-        name: 'name',
-        message: '项目名称',
+        name: "name",
+        message: "项目名称",
         when: !this.props.name
       },
       {
-        name: 'description',
-        message: '项目介绍',
+        name: "description",
+        message: "项目介绍",
         when: !this.props.description
       },
       {
-        name: 'homepage',
-        message: '项目主页',
+        name: "homepage",
+        message: "项目主页",
         when: !this.props.homepage
       },
       {
-        name: 'authorName',
+        name: "authorName",
         message: "开发者姓名(英文)",
         when: !this.props.authorName,
         default: this.user.git.name(),
         store: true
       },
       {
-        name: 'authorEmail',
+        name: "authorEmail",
         message: "开发者邮箱",
         when: !this.props.authorEmail,
         default: this.user.git.email(),
         store: true
       },
       {
-        name: 'keywords',
+        name: "keywords",
         message: '关键词（多个以逗号","分隔）',
         when: !this.pkg.keywords,
         filter(words) {
@@ -115,17 +118,17 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    const generateInto = this.options.generateInto
+    const generateInto = this.options.generateInto;
     const currentPkg = this.fs.readJSON(
-      this.destinationPath(generateInto, 'package.json'),
+      this.destinationPath(generateInto, "package.json"),
       {}
     );
 
     const pkg = extend(
       {
         name: this.props.name,
-        version: '1.0.0-alpha',
-        license: 'MIT',
+        version: "1.0.0-alpha",
+        license: "MIT",
         description: this.props.description,
         homepage: this.props.homepage,
         author: {
@@ -133,11 +136,11 @@ module.exports = class extends Generator {
           email: this.props.authorEmail,
           url: this.props.authorUrl
         },
-        main: 'index.js',
+        main: "index.js",
         keywords: [],
         scripts: {
-          serve: 'vue-cli-service serve',
-          build: 'vue-cli-service build'
+          serve: "vue-cli-service serve",
+          build: "vue-cli-service build"
         },
         dependencies: {},
         devDependencies: {
@@ -149,7 +152,7 @@ module.exports = class extends Generator {
           vuex: "^3.1.2"
         },
         engines: {
-          node: '>= 8.9.0'
+          node: ">= 8.9.0"
         }
       },
       currentPkg
@@ -159,6 +162,6 @@ module.exports = class extends Generator {
       pkg.keywords = _.uniq(this.props.keywords.concat(pkg.keywords));
     }
 
-    this.fs.writeJSON(this.destinationPath(generateInto, 'package.json'), pkg);
+    this.fs.writeJSON(this.destinationPath(generateInto, "package.json"), pkg);
   }
 };
